@@ -13,11 +13,15 @@ namespace ObserverPatternDemo
         /// Provides a value to use with events that do not have event data.
         /// </summary>
         public static readonly EventInfo Empty;
-        static EventInfo() => Empty = new EventInfo();
-        /// <summary>
-        /// Initializes a new instance of the EventInfo /> class.
-        /// </summary>
-        public EventInfo() { }
 
+        static EventInfo() => Empty = new EventInfo();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventInfo"/> class.
+        /// </summary>
+        public EventInfo()
+        {
+
+        }
     }
 }
