@@ -17,11 +17,9 @@ namespace ObserverPatternDemo
         static EventInfo() => Empty = new EventInfo();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EventInfo"/> class.
+        /// Initializes a new instance of the EventInfo /> class.
         /// </summary>
-        public EventInfo()
-        {
+        public EventInfo() { }
 
-        }
     }
 }

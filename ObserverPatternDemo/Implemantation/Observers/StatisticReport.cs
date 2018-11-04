@@ -11,15 +11,19 @@ namespace ObserverPatternDemo.Implemantation.Observers
 
         public void Update(IObservable<WeatherInfo> sender, WeatherInfo info)
         {
-            this.infos.Add(info);
+            WeatherInfo temp = new WeatherInfo();
+            temp.Pressure = info.Pressure;
+            temp.Humidity = info.Humidity;
+            temp.Temperature = info.Temperature;
+            this.infos.Add(temp);
         }
 
         public string GenerateReport()
         {
             return
-                $"Temperature:\nMean: {this.GetMeanTemperature()}, Minimum: {this.GetMinTemperature()}, Maximum: {this.GetMaxTemperature()}\n"
-                + $"Humidity:\nMean: {this.GetMeanHumidity()}, Minimum: {this.GetMinHumidity()}, Maximum: {this.GetMaxHumidity()}\n"
-                + $"Pressure:\nMean: {this.GetMeanPressure()}, Minimum: {this.GetMinPressure()}, Maximum: {this.GetMaxPressure()}";
+                $"Humidity:\nMean: {this.GetMeanHumidity()}%, Minimum: {this.GetMinHumidity()}%, Maximum: {this.GetMaxHumidity()}%\n"
+                + $"Pressure:\nMean: {this.GetMeanPressure()}mmHg, Minimum: {this.GetMinPressure()}mmHg, Maximum: {this.GetMaxPressure()}mmHg\n"
+                + $"Temperature:\nMean: {this.GetMeanTemperature()}C, Minimum: {this.GetMinTemperature()}C, Maximum: {this.GetMaxTemperature()}C\n";
         }
 
         public double GetMeanTemperature()
@@ -102,7 +106,7 @@ namespace ObserverPatternDemo.Implemantation.Observers
             int max = Int32.MinValue;
             foreach (var w in this.infos)
             {
-                if (w.Temperature > max)
+                if (w.Humidity > max)
                 {
                     max = w.Humidity;
                 }
@@ -121,7 +125,7 @@ namespace ObserverPatternDemo.Implemantation.Observers
             int min = Int32.MaxValue;
             foreach (var w in this.infos)
             {
-                if (w.Temperature < min)
+                if (w.Humidity < min)
                 {
                     min = w.Humidity;
                 }
@@ -158,7 +162,7 @@ namespace ObserverPatternDemo.Implemantation.Observers
             {
                 if (w.Pressure > max)
                 {
-                    max = w.Temperature;
+                    max = w.Pressure;
                 }
             }
 
@@ -177,7 +181,7 @@ namespace ObserverPatternDemo.Implemantation.Observers
             {
                 if (w.Pressure < min)
                 {
-                    min = w.Temperature;
+                    min = w.Pressure;
                 }
             }
 

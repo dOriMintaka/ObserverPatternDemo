@@ -6,7 +6,14 @@ namespace ObserverPatternDemo.Implemantation.Observable
 
     public class WeatherData : IObservable<WeatherInfo>
     {
+        private readonly WeatherInfo info = new WeatherInfo();
+
         private List<IObserver<WeatherInfo>> observers = new List<IObserver<WeatherInfo>>();
+
+        public WeatherData()
+        {
+            this.info = new WeatherInfo();
+        }
 
         public void Notify(IObservable<WeatherInfo> sender, WeatherInfo info)
         {
@@ -24,6 +31,14 @@ namespace ObserverPatternDemo.Implemantation.Observable
         public void Unregister(IObserver<WeatherInfo> observer)
         {
             this.observers.Remove(observer);
+        }
+
+        public void GetCurrentWeather(WeatherInfo info)
+        {
+            this.info.Pressure = info.Pressure;
+            this.info.Humidity = info.Humidity;
+            this.info.Temperature = info.Temperature;
+            this.Notify(this, this.info);
         }
     }
 }

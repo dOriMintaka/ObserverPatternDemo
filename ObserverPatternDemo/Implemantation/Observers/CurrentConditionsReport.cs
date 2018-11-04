@@ -5,6 +5,7 @@ namespace ObserverPatternDemo.Implemantation.Observers
     public class CurrentConditionsReport : IObserver<WeatherInfo>
     {
         private WeatherInfo currentInfo = new WeatherInfo() { Humidity = 0, Pressure = 0, Temperature = 0 };
+
         public void Update(IObservable<WeatherInfo> sender, WeatherInfo info)
         {
             this.currentInfo.Humidity = info.Humidity;
@@ -15,7 +16,7 @@ namespace ObserverPatternDemo.Implemantation.Observers
         public string GetCurrentCondition()
         {
             return
-                $"Current state:\nHumidity: {this.currentInfo.Humidity}\nPressure: {this.currentInfo.Pressure}\nTemperature: {this.currentInfo.Temperature}";
+                $"Current state:\nHumidity: {this.currentInfo.Humidity}%\nPressure: {this.currentInfo.Pressure}mmHg\nTemperature: {this.currentInfo.Temperature}C";
         }
     }
 }
