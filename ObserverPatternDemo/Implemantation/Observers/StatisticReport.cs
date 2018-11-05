@@ -20,8 +20,8 @@ namespace ObserverPatternDemo.Implemantation.Observers
 
         public string GenerateReport()
         {
-            return
-                $"Humidity:\nMean: {this.GetMeanHumidity()}%, Minimum: {this.GetMinHumidity()}%, Maximum: {this.GetMaxHumidity()}%\n"
+            return "Statistic report\n"
+                + $"Humidity:\nMean: {this.GetMeanHumidity()}%, Minimum: {this.GetMinHumidity()}%, Maximum: {this.GetMaxHumidity()}%\n"
                 + $"Pressure:\nMean: {this.GetMeanPressure()}mmHg, Minimum: {this.GetMinPressure()}mmHg, Maximum: {this.GetMaxPressure()}mmHg\n"
                 + $"Temperature:\nMean: {this.GetMeanTemperature()}C, Minimum: {this.GetMinTemperature()}C, Maximum: {this.GetMaxTemperature()}C\n";
         }

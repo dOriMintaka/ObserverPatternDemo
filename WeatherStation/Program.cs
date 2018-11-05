@@ -1,6 +1,8 @@
 ﻿namespace WeatherStation
 {
     using System;
+    using System.Diagnostics;
+    using System.Threading;
 
     using ObserverPatternDemo.Implemantation.Observable;
     using ObserverPatternDemo.Implemantation.Observers;
@@ -15,56 +17,27 @@
 
             data.Register(currentConditionsReport);
             data.Register(statisticReport);
-
-            bool isRunning = true;
-            Help();
-            while (isRunning)
+            int time = 0, period = 0;
+            string str = " ";
+            while (!int.TryParse(str, out time) || time < 0)
             {
-                if (!int.TryParse(Console.ReadLine(), out int choice))
-                {
-                    Help();
-                    continue;
-                }
-
-                switch (choice)
-                {
-                    case 1:
-                        data.GetCurrentWeather(GenerateWeatherChanges());
-                        Console.WriteLine("Updated successfully!");
-                        break;
-                    case 2:
-                        try
-                        {
-                            Console.WriteLine(currentConditionsReport.GetCurrentCondition());
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.Message);
-                        }
-
-                        break;
-                    case 3:
-                        try
-                        {
-                            Console.WriteLine(statisticReport.GenerateReport());
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.Message);
-                        }
-
-                        break;
-                    case 4:
-                        isRunning = false;
-                        break;
-                    default:
-                        Help();
-                        break;
-                }
+                Console.WriteLine("Enter time in seconds: ");
+                str = Console.ReadLine();
             }
+
+            str = " ";
+            while (!int.TryParse(str, out period) || period < 0)
+            {
+                Console.WriteLine("Enter period in milliseconds: ");
+                str = Console.ReadLine();
+            }
+
+            Start(time, period, data);
+
+            Console.WriteLine(statisticReport.GenerateReport());
         }
 
-        static WeatherInfo GenerateWeatherChanges()
+        private static WeatherInfo GenerateWeatherChanges()
         {
             Random random = new Random();
             WeatherInfo info = new WeatherInfo();
@@ -81,6 +54,17 @@
             Console.WriteLine("2. Get current weather state");
             Console.WriteLine("3. Generate weather report");
             Console.WriteLine("4. Exit");
+        }
+
+        private static void Start(int time, int period, WeatherData data)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            while (stopwatch.ElapsedMilliseconds < time * 1000)
+            {
+                data.GetCurrentWeather(GenerateWeatherChanges());
+                Thread.Sleep(period);
+            }
         }
     }
 }

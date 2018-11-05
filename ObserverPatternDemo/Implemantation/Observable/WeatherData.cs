@@ -15,7 +15,7 @@ namespace ObserverPatternDemo.Implemantation.Observable
             this.info = new WeatherInfo();
         }
 
-        public void Notify(IObservable<WeatherInfo> sender, WeatherInfo info)
+        void IObservable<WeatherInfo>.Notify(IObservable<WeatherInfo> sender, WeatherInfo info)
         {
             foreach (var o in this.observers)
             {
@@ -38,7 +38,7 @@ namespace ObserverPatternDemo.Implemantation.Observable
             this.info.Pressure = info.Pressure;
             this.info.Humidity = info.Humidity;
             this.info.Temperature = info.Temperature;
-            this.Notify(this, this.info);
+            ((IObservable<WeatherInfo>)this).Notify(this, this.info);
         }
     }
 }
